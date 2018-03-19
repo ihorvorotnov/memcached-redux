@@ -651,6 +651,7 @@ if ( class_exists( 'Memcached' ) ) :
 					$item[2] = 'default';
 				}
 
+				// @todo Use foreach as list available since PHP 5.5
 				list( $id, $data, $group ) = $item;
 				$key = $this->key( $id, $group );
 
