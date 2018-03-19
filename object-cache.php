@@ -630,9 +630,8 @@ if ( class_exists( 'Memcached' ) ) :
 
 			$expire = ( $expire === 0 ) ? $this->default_expiration : $expire;
 			$mc =& $this->get_mc( $group );
-			$result = $mc->set( $key, $data, $expire );
 
-			return $result;
+			return $mc->set( $key, $data, $expire );
 		}
 
 		/**
