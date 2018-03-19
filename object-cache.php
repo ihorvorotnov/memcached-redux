@@ -304,7 +304,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return bool
 		 */
-		function add( $id, $data, $group = 'default', $expire = 0 ) {
+		public function add( $id, $data, $group = 'default', $expire = 0 ) {
 			$key = $this->key( $id, $group );
 
 			if ( is_object( $data ) ) {
@@ -336,7 +336,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @param $groups
 		 */
-		function add_global_groups( $groups ) {
+		public function add_global_groups( $groups ) {
 			if ( ! is_array( $groups ) ) {
 				$groups = (array) $groups;
 			}
@@ -350,7 +350,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @param $groups
 		 */
-		function add_non_persistent_groups( $groups ) {
+		public function add_non_persistent_groups( $groups ) {
 			if ( ! is_array( $groups ) ) {
 				$groups = (array) $groups;
 			}
@@ -368,7 +368,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return mixed
 		 */
-		function incr( $id, $n = 1, $group = 'default' ) {
+		public function incr( $id, $n = 1, $group = 'default' ) {
 			$key = $this->key( $id, $group );
 			$mc =& $this->get_mc( $group );
 			$this->cache[ $key ] = $mc->increment( $key, $n );
@@ -385,7 +385,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return mixed
 		 */
-		function decr( $id, $n = 1, $group = 'default' ) {
+		public function decr( $id, $n = 1, $group = 'default' ) {
 			$key = $this->key( $id, $group );
 			$mc =& $this->get_mc( $group );
 			$this->cache[ $key ] = $mc->decrement( $key, $n );
@@ -396,7 +396,7 @@ if ( class_exists( 'Memcached' ) ) :
 		/**
 		 * @todo Document it.
 		 */
-		function close() {
+		public function close() {
 			// Silence is Golden.
 		}
 
@@ -408,7 +408,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return bool
 		 */
-		function delete( $id, $group = 'default' ) {
+		public function delete( $id, $group = 'default' ) {
 			$key = $this->key( $id, $group );
 
 			if ( in_array( $group, $this->no_mc_groups ) ) {
@@ -434,7 +434,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return bool
 		 */
-		function flush() {
+		public function flush() {
 			// Don't flush if multi-blog.
 			if ( function_exists( 'is_site_admin' ) || defined( 'CUSTOM_USER_TABLE' ) && defined( 'CUSTOM_USER_META_TABLE' ) ) {
 				return true;
@@ -459,7 +459,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return bool|mixed
 		 */
-		function get( $id, $group = 'default', $force = false, &$found = null ) {
+		public function get( $id, $group = 'default', $force = false, &$found = null ) {
 			$key = $this->key( $id, $group );
 			$mc =& $this->get_mc( $group );
 			$found = false;
@@ -510,7 +510,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return array
 		 */
-		function get_multi( $keys, $group = 'default' ) {
+		public function get_multi( $keys, $group = 'default' ) {
 			$return = array();
 			$gets = array();
 
@@ -560,7 +560,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return null|string|string[]
 		 */
-		function key( $key, $group ) {
+		public function key( $key, $group ) {
 			if ( empty( $group ) ) {
 				$group = 'default';
 			}
@@ -584,7 +584,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return mixed
 		 */
-		function replace( $id, $data, $group = 'default', $expire = 0 ) {
+		public function replace( $id, $data, $group = 'default', $expire = 0 ) {
 			$key = $this->key( $id, $group );
 			$expire = ( $expire === 0) ? $this->default_expiration : $expire;
 			$mc =& $this->get_mc( $group );
@@ -612,7 +612,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return bool
 		 */
-		function set( $id, $data, $group = 'default', $expire = 0 ) {
+		public function set( $id, $data, $group = 'default', $expire = 0 ) {
 			$key = $this->key( $id, $group );
 			if ( isset( $this->cache[$key] ) && ( 'checkthedatabaseplease' === $this->cache[$key] ) ) {
 				return false;
@@ -642,7 +642,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 * @param int    $expire
 		 * @param string $group
 		 */
-		function set_multi( $items, $expire = 0, $group = 'default' ) {
+		public function set_multi( $items, $expire = 0, $group = 'default' ) {
 			$sets = array();
 			$mc =& $this->get_mc( $group );
 			$expire = ( $expire === 0 ) ? $this->default_expiration : $expire;
@@ -684,7 +684,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return string
 		 */
-		function colorize_debug_line( $line ) {
+		public function colorize_debug_line( $line ) {
 			$colors = array(
 				'get'   => 'green',
 				'set'   => 'purple',
@@ -701,7 +701,7 @@ if ( class_exists( 'Memcached' ) ) :
 		/**
 		 * @todo Document it.
 		 */
-		function stats() {
+		public function stats() {
 			echo "<p>\n";
 
 			foreach ( $this->stats as $stat => $n ) {
@@ -744,7 +744,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 *
 		 * @return mixed
 		 */
-		function &get_mc( $group ) {
+		public function &get_mc( $group ) {
 			if ( isset( $this->mc[$group] ) ) {
 				return $this->mc[ $group ];
 			}
@@ -758,7 +758,7 @@ if ( class_exists( 'Memcached' ) ) :
 		 * @todo Document it.
 		 * @todo Move to the beginning of the class.
 		 */
-		function __construct() {
+		public function __construct() {
 
 			$this->stats = array(
 				'get'        => 0,
