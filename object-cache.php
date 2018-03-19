@@ -283,15 +283,16 @@ if ( class_exists( 'Memcached' ) ) :
 
 		/**
 		 * @todo Document all class properties.
+		 * @todo Verify whether public access modifiers are needed here.
 		 */
-		var $global_groups = array();
-		var $no_mc_groups = array();
-		var $cache = array();
-		var $mc = array();
-		var $stats = array();
-		var $group_ops = array();
-		var $cache_enabled = true;
-		var $default_expiration = 0;
+		public $global_groups = array();
+		public $no_mc_groups = array();
+		public $cache = array();
+		public $mc = array();
+		public $stats = array();
+		public $group_ops = array();
+		public $cache_enabled = true;
+		public $default_expiration = 0;
 
 		/**
 		 * @todo Document it.
