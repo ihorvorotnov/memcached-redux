@@ -565,7 +565,7 @@ if ( class_exists( 'Memcached' ) ) :
 				$group = 'default';
 			}
 
-			if ( false !== array_search( $group, $this->global_groups ) ) {
+			if ( in_array( $group, $this->global_groups ) ) {
 				$prefix = $this->global_prefix;
 			} else {
 				$prefix = $this->blog_prefix;
