@@ -771,6 +771,7 @@ if ( class_exists( 'Memcached' ) ) :
 
 			global $memcached_servers;
 
+			// @todo Test if using `null !==` makes more sense here.
 			if ( isset( $memcached_servers ) ) {
 				$buckets = $memcached_servers;
 			} else {
